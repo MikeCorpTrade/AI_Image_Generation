@@ -6,9 +6,7 @@ dotenv.config();
 
 const router = express.Router();
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const openai = new OpenAI();
 
 router.route("/").get((req, res) => {
   res.send("Hello from DALL-E");
@@ -20,6 +18,7 @@ router.route("/").post(async (req, res) => {
 
     const aiResponse = await openai.images.generate({
       prompt,
+      model: "dall-e-2",
       n: 1,
       size: "1024x1024",
       response_format: "b64_json",
